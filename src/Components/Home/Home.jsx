@@ -71,9 +71,13 @@ async function addingNote(values){
   })
 }
  async function displayingNotes(){
- const res= await displayNote();
+
+    const res= await displayNote();
  console.log(res)
  setNotes(res)
+    
+  
+ 
 }
 async function deletingNote(id){
 
@@ -164,7 +168,103 @@ if(notes===null){
 />
   </div>
 }
+else if(notes==='empty' ){
+  return  <>
+  <nav className="navbar navbar-expand-lg bg-body-tertiary">
+<div className="container">
+  <a className="navbar-brand" href="">Notee</a>
+  <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span className="navbar-toggler-icon"></span>
+  </button>
+  <div className="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+    
+      <li className="nav-item">
+        <Link className="nav-link" to="/logout">Logout</Link>
+      </li>
+    </ul>
+  
+  </div>
+</div>
+</nav>
+  <div className="container">
+  
+{/* modal */}
 
+<button onClick={addNoteBtnFn} type="button" className="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+Add Note
+</button>
+
+
+<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div className="modal-dialog">
+  <div className="modal-content">
+    <div className="modal-header">
+      <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+      <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={clearForm}></button>
+    </div>
+    <div className="modal-body">
+    <form className='' onSubmit={formik.handleSubmit}>
+  <input name='title' value={formik.values.title} onChange={formik.handleChange} onBlur={formik.handleBlur} id='title' type='text' placeholder='Title' className='form-control mb-3' ></input>
+  <input name='content'value={formik.values.content} onChange={formik.handleChange} onBlur={formik.handleBlur} id='content' type='text' placeholder='Content' className='form-control mb-3' ></input>
+
+<div className="modal-footer">
+  {
+    addNoteBtn===true ? <>
+     <button data-bs-dismiss="modal"  className='my-4 btn btn-success d-block ms-auto'>Add Note</button>
+     <button type='button' data-bs-dismiss="modal"  onClick={()=>{cancel()}} className='btn btn-secondary my-4  d-block ms-auto'>Cancel</button>
+    
+    </> :<>
+    <button type='button' data-bs-dismiss="modal"  onClick={()=>{cancel()}} className='btn btn-secondary my-4  d-block ms-auto'>Cancel</button>
+    <button type='button' data-bs-dismiss="modal" onClick={(e)=>{updateSpecificNote(e,id,{title:formik.values.title,content:formik.values.content})}} className='my-4 btn btn-primary d-block ms-auto'>update Note</button>
+    </> 
+  }
+
+
+
+</div>
+
+</form>
+    </div>
+  </div>
+</div>
+</div>
+
+<div className='w-50 rounded rounded-4 border border-2 p-3 my-3 ms-auto d-none'>
+<form className='' onSubmit={formik.handleSubmit}>
+  <input name='title' value={formik.values.title} onChange={formik.handleChange} onBlur={formik.handleBlur} id='title' type='text' placeholder='Title' className='form-control mb-3' ></input>
+  <input name='content'value={formik.values.content} onChange={formik.handleChange} onBlur={formik.handleBlur} id='content' type='text' placeholder='Content' className='form-control mb-3' ></input>
+
+  <div className="d-flex justify-content-between" >
+     <button  className='my-4 btn btn-success d-block ms-auto'>Add Note</button>
+<button type='button' onClick={()=>{updateSpecificNote(id,{title:formik.values.title,content:formik.values.content})}} className='my-4 btn btn-success d-block ms-auto'>update Note</button>
+<button type='button' onClick={()=>{cancel()}} className='my-4 btn btn-success d-block ms-auto'>Cancel</button>
+</div>
+
+</form>
+</div>
+<div className="row my-5 p-3 g-3">
+{notes==='empty'? <h1 className='text-center'>no notes to show</h1>: notes?.map((eachNote,index)=>{
+return <div key={index} className="col-md-4 col-12">
+<div className=" container rounded rounded-3 border-4 border-black bg-body-secondary p-3 ">
+<div className='text-center m-3 overflow-hidden'>{eachNote.title}</div>
+<div className='text-center m-3 overflow-hidden'>{eachNote.content}</div>
+<div className='d-flex justify-content-around'>
+  <button onClick={()=>{deletingNote(eachNote._id)}} className='btn btn-danger'><i className="fa-solid fa-trash"></i></button>
+  <button data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>{updatingNotes({title:eachNote.title,content:eachNote.content,id:eachNote._id})}} className='btn btn-primary'> <i className="fa-regular fa-pen-to-square"></i></button></div>
+
+
+</div>
+
+</div>
+})}
+</div>
+  </div>
+ 
+    
+
+  </>
+}
 
   return (
     <>

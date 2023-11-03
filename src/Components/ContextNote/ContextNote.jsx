@@ -33,7 +33,7 @@ return notes
     
     } catch (error) {
       console.log(error)
-      return null
+      return 'empty'
     }
     
     }
