@@ -4,7 +4,8 @@ import {useFormik} from 'formik'
 import axios from 'axios';
 import {useNavigate,Link} from 'react-router-dom';
 import * as Yup from 'yup';
-import {FallingLines} from "react-loader-spinner"
+import {FallingLines} from "react-loader-spinner";
+import {Helmet} from 'react-helmet'
 export default function Registeration() {
 
 const [error,setError]=useState(null)
@@ -99,6 +100,9 @@ onSubmit:signUp,
 
   return (
     <>
+    <Helmet>
+      <title>regsiteration</title>
+    </Helmet>
       <div className="container px-2 my-3">
         <h1 className='text-center'>Note App</h1>
         <div className="row">

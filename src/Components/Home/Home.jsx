@@ -7,6 +7,7 @@ import {Oval} from "react-loader-spinner"
 import Swal from 'sweetalert2/dist/sweetalert2.all.min.js'
 
 import 'sweetalert2//dist/sweetalert2.min.css'
+import { Helmet } from 'react-helmet';
 export default function Home() {
 const {addNote,displayNote,deleteNote,updateNote}=useContext(noteContext)
 const [notes,setNotes]=useState(null)
@@ -170,6 +171,9 @@ if(notes===null){
 }
 else if(notes==='empty' ){
   return  <>
+  <Helmet>
+    <title>Home</title>
+  </Helmet>
   <nav className="navbar navbar-expand-lg bg-body-tertiary">
 <div className="container">
   <a className="navbar-brand" href="">Notee</a>
@@ -268,6 +272,9 @@ return <div key={index} className="col-md-4 col-12">
 
   return (
     <>
+    <Helmet>
+    <title>Home</title>
+  </Helmet>
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container">
     <a className="navbar-brand" href="">Notee</a>

@@ -5,6 +5,7 @@ import axios from 'axios';
 import {useNavigate,Link} from 'react-router-dom';
 import {FallingLines} from 'react-loader-spinner'
 import * as Yup from 'yup';
+import { Helmet } from 'react-helmet';
 export default function Login() {
   const[loading,setLoading]=useState(false)
   const[error,setError]=useState(null)
@@ -50,6 +51,9 @@ onSubmit:signIn,
 
   return (
     <>
+    <Helmet>
+      <title>Login</title>
+    </Helmet>
       <div className="container px-3 my-3">
         <h1 className='text-center'>Note App</h1>
         <div className="row">
